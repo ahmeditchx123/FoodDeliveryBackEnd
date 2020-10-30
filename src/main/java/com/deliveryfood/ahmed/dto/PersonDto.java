@@ -12,7 +12,7 @@ public class PersonDto {
     private String email;
     private String password;
     private Set<PersonAddressDto> personAddressDto;
-
+    private Set<String> role;
     public Long getId() {
         return id;
     }
@@ -75,5 +75,13 @@ public class PersonDto {
 
     public void setPersonAddressDto(Set<PersonAddressDto> personAddressDto) {
         this.personAddressDto = personAddressDto;
+    }
+
+    public Set<String> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<String> role) {
+        this.role = role;
     }
 }

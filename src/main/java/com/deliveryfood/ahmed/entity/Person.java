@@ -49,6 +49,12 @@ public class Person {
             cascade = CascadeType.ALL)
     private Set<PersonAddress> personAddresses = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "person_roles",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
 
     public Long getId() {
         return id;
@@ -112,5 +118,13 @@ public class Person {
 
     public void setPersonAddresses(Set<PersonAddress> personAddresses) {
         this.personAddresses = personAddresses;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

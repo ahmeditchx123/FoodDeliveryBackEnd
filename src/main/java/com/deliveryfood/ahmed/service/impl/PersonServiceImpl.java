@@ -2,6 +2,7 @@ package com.deliveryfood.ahmed.service.impl;
 
 import com.deliveryfood.ahmed.dto.PersonDto;
 import com.deliveryfood.ahmed.entity.Person;
+import com.deliveryfood.ahmed.entity.Role;
 import com.deliveryfood.ahmed.mappers.PersonMapper;
 import com.deliveryfood.ahmed.repository.PersonRepository;
 import com.deliveryfood.ahmed.service.PersonService;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -36,15 +38,16 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto createPerson(PersonDto personDto) {
+    public PersonDto createPerson(PersonDto personDto, Set<Role> roles) {
         Person person = personMapper.toPersonEntity(personDto);
         person.setPassword(passwordEncoder.encode(personDto.getPassword()));
+        person.setRoles(roles);
         return personMapper.toPersonDto(personRepository.save(person));
     }
 
     @Override
     public PersonDto updatePerson(PersonDto personDto) {
-         return personMapper.toPersonDto(personRepository.save(personMapper.toPersonEntity(personDto)));
+        return personMapper.toPersonDto(personRepository.save(personMapper.toPersonEntity(personDto)));
     }
 
     @Override
